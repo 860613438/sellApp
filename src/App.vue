@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <Header :seller=seller>seller</Header>
     <Nav></Nav>
     <div class="content">
       <router-view/>
@@ -20,15 +20,22 @@ export default {
   data () {
     return {
       seller: {
-
+        type: String
+      },
+      goods: {
+        type: String
+      },
+      ratings: {
+        type: String
       }
     }
   },
   created () {
-    console.log(this.$http)
-    this.$http.get('./data.json').then(response => {
-      console.log('0')
-      console.log(response)
+    this.$http.get('https://860613438.github.io/data.json').then(response => {
+      const res = response.body
+      this.seller = res.seller
+      this.goods = res.goods
+      this.ratings = res.ratings
     }, response => {
       // error callback
     })

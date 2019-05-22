@@ -1,6 +1,7 @@
 @mixin text-overflow($width:100%, $display:block) {
   width: $width;
   display: $display;
+  height: 100%;
   white-space: nowrap;
   -ms-text-overflow: ellipsis;
   text-overflow: ellipsis;

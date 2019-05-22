@@ -11,13 +11,15 @@
           {{seller.name}}
         </span>
         <span class="seller_intro_details">{{seller.description}}/{{seller.deliveryTime}}分钟送达</span>
-        <span class="seller_offer" v-if="seller.supports.length > 0">
-          <i></i>{{seller.supports[0].description}}
+        <span class="seller_offer" v-if="seller.supports && seller.supports.length > 0">
+          <i :class="iconMap[seller.supports[0].type]"></i>{{seller.supports[0].description}}
         </span>
       </div>
     </div>
     <div class="header_wrap_note">
-
+      <div class="note_icon"></div>
+      <div class="note_txt">ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大</div>
+      <i></i>
     </div>
   </div>
 </template>
@@ -29,6 +31,9 @@ export default {
   data () {
     return {
     }
+  },
+  created () {
+    this.iconMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
   }
 }
 </script>
@@ -88,11 +93,43 @@ export default {
             width: 12px;
             height: 12px;
             vertical-align: top;
-            @include bg-images('decrease_1');
             background-size: 12px 12px;
             background-repeat: no-repeat;
+            &.decrease {
+              @include bg-images('decrease_1');
+            }
+            &.discount {
+              @include bg-images('discount_1');
+            }
+            &.guarantee {
+              @include bg-images('guarantee_1');
+            }
+            &.invoice {
+              @include bg-images('invoice_1');
+            }
+            &.special {
+              @include bg-images('special_1');
+            }
           }
         }
+      }
+    }
+    .header_wrap_note {
+      position: relative;
+      height: 28px;
+      line-height: 28px;
+      background: rgba(7, 17, 27, .2);
+      color: #fff;
+      padding: 0 20px;
+      .note_icon {
+        position: absolute;
+        left: -20px;
+      }
+      .note_txt {
+        @include text-overflow();
+      }
+      i {
+        position: absoult;
       }
     }
   }

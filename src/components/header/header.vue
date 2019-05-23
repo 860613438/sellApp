@@ -10,6 +10,7 @@
           <i></i>
           {{seller.name}}
         </span>
+        <strt :score="seller.score" :size="48"></strt>
         <span class="seller_intro_details">{{seller.description}}/{{seller.deliveryTime}}分钟送达</span>
         <span class="seller_offer" v-if="seller.supports && seller.supports.length > 0">
           <i :class="iconMap[seller.supports[0].type]"></i>{{seller.supports[0].description}}
@@ -25,8 +26,9 @@
 </template>
 
 <script>
+import strt from '@/components/star/star'
 export default {
-  components: {},
+  components: { strt },
   props: ['seller'],
   data () {
     return {

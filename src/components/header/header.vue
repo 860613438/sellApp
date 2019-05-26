@@ -10,41 +10,51 @@
           <i></i>
           {{seller.name}}
         </span>
-        <strt :score="seller.score" :size="48"></strt>
         <span class="seller_intro_details">{{seller.description}}/{{seller.deliveryTime}}分钟送达</span>
         <span class="seller_offer" v-if="seller.supports && seller.supports.length > 0">
           <i :class="iconMap[seller.supports[0].type]"></i>{{seller.supports[0].description}}
         </span>
+        <span class="infor_count_wrap" @click="showLabelType">{{seller && seller.supports && seller.supports.length || "0"}}个人<i class="infor_count icon-keyboard_arrow_right"></i></span>
       </div>
     </div>
     <div class="header_wrap_note">
       <div class="note_icon"></div>
-      <div class="note_txt">ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大ad啊大大</div>
-      <i></i>
+      <div class="note_txt">{{seller.bulletin}}</div>
+      <i class="icon_arrow icon-keyboard_arrow_right" @click="showLabelType"></i>
     </div>
+    <oMask :seller="seller" v-show="showLabel"></oMask>
   </div>
 </template>
-
 <script>
-import strt from '@/components/star/star'
+import mask from '@/components/header/mask'
 export default {
-  components: { strt },
+  components: {
+    'oMask': mask
+  },
   props: ['seller'],
   data () {
     return {
+      showLabel: false
     }
   },
   created () {
     this.iconMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+  },
+  methods: {
+    showLabelType () {
+      this.showLabel = !this.showLabel
+    }
   }
 }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import "../../common/scss/mixin.scss";
+  @import "../../common/scss/font.css";
   .header {
     text-align: left;
     background: rgba(0, 0, 0, .5);
     .header_wrap_top {
+      display: flex;
       padding: 24px 12px 18px 24px;
       .seller_img {
         display: inline-block;
@@ -59,7 +69,7 @@ export default {
       }
       .seller_intro {
         position: relative;
-        display: inline-block;
+        flex: 1;
         span {
           display: block;
           color: rgba(255, 255, 255, 1);
@@ -91,28 +101,22 @@ export default {
           font-weight: 200;
           line-height: 12px;
           i {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            vertical-align: top;
-            background-size: 12px 12px;
-            background-repeat: no-repeat;
-            &.decrease {
-              @include bg-images('decrease_1');
-            }
-            &.discount {
-              @include bg-images('discount_1');
-            }
-            &.guarantee {
-              @include bg-images('guarantee_1');
-            }
-            &.invoice {
-              @include bg-images('invoice_1');
-            }
-            &.special {
-              @include bg-images('special_1');
-            }
+            margin-right: 2px;
           }
+        }
+      }
+      .infor_count_wrap {
+        position: absolute;
+        right: 0;
+        bottom: -0;
+        height: 24px;
+        line-height: 24px;
+        border-radius: 12px;
+        background: rgba($color: #000, $alpha: 0.2);
+        font-size: 10px;
+        padding: 0 8px;
+        i {
+          margin-top: 6px;
         }
       }
     }
@@ -122,16 +126,29 @@ export default {
       line-height: 28px;
       background: rgba(7, 17, 27, .2);
       color: #fff;
-      padding: 0 20px;
+      padding: 0 27px 0 38px;
       .note_icon {
         position: absolute;
-        left: -20px;
+        left: 12px;
+        top: 8px;
+        width: 22px;
+        height: 12px;
+        @include bg-images('bulletin');
       }
       .note_txt {
+        font-size: 10px;
+        line-height: 28px;
+        height: 28px;
+        font-weight: 200;
+        color: #fff;
         @include text-overflow();
       }
-      i {
-        position: absoult;
+      .icon_arrow {
+        position: absolute;
+        top: 6px;
+        right: 15px;
+        width: 16px;
+        height: 16px;
       }
     }
   }

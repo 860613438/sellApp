@@ -1,3 +1,4 @@
+#app { margin-top: 0; }
 @mixin text-overflow($width:100%, $display:block) {
   width: $width;
   display: $display;
@@ -9,7 +10,31 @@
 }
 @mixin bg-images($url) {
   background-image: url("./images/" + $url+"@2x.png");
+  background-size: 100% 100%;
   @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio:3){
     background-image: url("./images/" + $url + "@3x.png");
+  }
+}
+i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  vertical-align: top;
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+  &.decrease {
+    @include bg-images('decrease_1');
+  }
+  &.discount {
+    @include bg-images('discount_1');
+  }
+  &.guarantee {
+    @include bg-images('guarantee_1');
+  }
+  &.invoice {
+    @include bg-images('invoice_1');
+  }
+  &.special {
+    @include bg-images('special_1');
   }
 }
